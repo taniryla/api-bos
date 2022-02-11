@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API</title>
+</head>
+
+<body>
+    <p class="user"></p>
+    <script>
+        const endpoint = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
+        const userEl = document.querySelector('.user');
+
+
+        userEl.textContent = 'loading...';
+        const randomCocktailPromise = fetch(endpoint);
+        randomCocktailPromise.then(response => {
+            return response.json();
+        }).then(data => {
+            let dataObj = data.drinks[0];
+            console.log(dataObj);
+            console.log(dataObj.idDrink);
+            console.log(dataObj.strDrink);
+            userEl.textContent = `${dataObj.idDrink} - ${dataObj.strDrink}`
+        }).catch(handleError)
+
+
+
+        function handleError(err) {
+            console.log('Oh no!')
+            console.log(err)
+        }
+    </script>
+</body>
+
+</html>
